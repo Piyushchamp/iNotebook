@@ -48,7 +48,7 @@ const Navbar = (props) => {
                   location.pathname === "/home" ? "active" : ""
                 }`}
                 aria-current="page"
-                to="/"
+                to="/home"
                 onClick={handle}
               >
                 Home
