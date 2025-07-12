@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Login = (props) => {
+  const host = process.env.REACT_APP_BACKEND_URL;
+
   const [credentials, setCredentials] = useState({ email: "", password: "" });
   const [authenticate, setAuthenticate] = useState(false);
   let navigate = useNavigate();
 
   const handlesubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch(`http://localhost:5000/api/auth/login`, {
+    const response = await fetch(`${host}/api/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -23,7 +25,7 @@ const Login = (props) => {
     if (json.success) {
       // save the auth token and redirect
       setAuthenticate(true);
-      localStorage.setItem("token",json.authToken);
+      localStorage.setItem("token", json.authToken);
       props.showalert(" Logged in successfully", "success");
       navigate("/home");
     } else {
@@ -40,7 +42,9 @@ const Login = (props) => {
       <h2>Login to continue to iNotebook</h2>
       <form onSubmit={handlesubmit}>
         <div className="form-group my-3">
-          <label htmlFor="email" className="my-2">Email address</label>
+          <label htmlFor="email" className="my-2">
+            Email address
+          </label>
           <input
             type="email"
             className="form-control"
@@ -53,7 +57,9 @@ const Login = (props) => {
           />
         </div>
         <div className="form-group my-3">
-          <label htmlFor="password" className="my-2">Password</label>
+          <label htmlFor="password" className="my-2">
+            Password
+          </label>
           <input
             type="password"
             className="form-control"
@@ -73,5 +79,3 @@ const Login = (props) => {
 };
 
 export default Login;
-
-
